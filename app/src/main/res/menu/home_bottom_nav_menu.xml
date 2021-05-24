@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_top"
+        android:enabled="true"
+        android:icon="@drawable/ic_top"
+        android:iconTint="#00FFFFFF"
+        android:title="Top" />
+
+    <item
+        android:id="@+id/menu_hot"
+        android:enabled="true"
+        android:icon="@drawable/ic_hot"
+        android:iconTint="#00FFFFFF"
+        android:title="Hot" />
+
+    <item
+        android:id="@+id/menu_me"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:iconTint="#00FFFFFF"
+        android:title="Me"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/menu_account"
+        android:enabled="true"
+        android:icon="@drawable/ic_account"
+        android:iconTint="#00FFFFFF"
+        android:title="Login" />
+</menu>

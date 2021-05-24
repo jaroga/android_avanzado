@@ -1,0 +1,28 @@
+package com.danielceinos.imgram.data.imgurapi
+
+data class ImgurGallery(
+    val account_id: String?,
+    val account_url: String?,
+    val comment_count: Int,
+    val datetime: Long,
+    val description: String?,
+    val downs: Int,
+    val favorite: Boolean,
+    val favorite_count: Int,
+    val id: String,
+    val in_gallery: Boolean,
+    val in_most_viral: Boolean,
+    val images: List<ImgurImage>?,
+    val is_album: Boolean,
+    val link: String,
+    val points: Int,
+    val score: Int,
+    val section: String,
+    val tags: List<ImgurTag>,
+    val title: String,
+    val topic: String?,
+    val topic_id: String?,
+    val type: String?,
+    val ups: Int,
+    val views: Int,
+)
