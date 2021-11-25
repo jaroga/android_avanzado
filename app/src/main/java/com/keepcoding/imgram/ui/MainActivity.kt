@@ -3,25 +3,37 @@ package com.keepcoding.imgram.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationBarView
 import com.keepcoding.imgram.R
 import com.keepcoding.imgram.ThreadManager
 import com.keepcoding.imgram.databinding.ActivityMainBinding
+import com.keepcoding.imgram.managers.MainManager
 import com.keepcoding.imgram.model.Image
+import com.keepcoding.imgram.visible
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var imageAdapter = ImageAdapter()
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+//    private val viewModel: MainViewModel by lazy {
+//        ViewModelProvider(this).get(MainViewModel::class.java)
+//    }
+
+    private val viewModel: MainViewModel by viewModels()
 
     //private lateinit var lateinitViewModel: MainViewModel
+
+    private val mainManager = MainManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +42,18 @@ class MainActivity : AppCompatActivity() {
 
         with(binding){
             imageList.adapter = imageAdapter
-            imageList.layoutManager =
-                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+//            imageList.layoutManager =
+//                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+
+            imageList.layoutManager = GridLayoutManager(this@MainActivity, 2)
 
             // Error de lateinit no inicializado
             //lateinitViewModel.getHola()
 
             button.setOnClickListener {
-                viewModel.launchCoroutineInViewModel()
+//                viewModel.launchCoroutineInViewModel()
+//                mainManager.diTuVariable(
+//                viewModel.getTvShows()
             }
 
             bottomNavigationView.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {
@@ -73,7 +89,12 @@ class MainActivity : AppCompatActivity() {
 
 //        Thread.sleep(100000)
 
-        imageAdapter.data = images
+        binding.progress.visible(true)
+
+        viewModel.images.observe(this){
+            imageAdapter.addAll(it)
+            binding.progress.visible(false)
+        }
     }
 
     override fun onPause() {

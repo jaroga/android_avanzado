@@ -6,18 +6,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keepcoding.imgram.data.LocalDataSource
+import com.keepcoding.imgram.data.RemoteDataSource
+import com.keepcoding.imgram.data.Repository
+import com.keepcoding.imgram.data.TheMovieDBApi
+import com.keepcoding.imgram.mappers.TvShowMapper
 import com.keepcoding.imgram.model.Image
+import com.keepcoding.imgram.model.TvShowPresentation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: Repository, private val mapper: TvShowMapper) : ViewModel() {
 
-    private val _images: MutableLiveData<Image> by lazy {
-        MutableLiveData<Image>()
+    private val _images: MutableLiveData<List<TvShowPresentation>> by lazy {
+        MutableLiveData<List<TvShowPresentation>>()
     }
-    val images: LiveData<Image> get() = _images
+    val images: LiveData<List<TvShowPresentation>> get() = _images
 
     private var coroutine: Job? = null
+
+    init {
+        getTvShows()
+    }
+
+    private fun getTvShows(){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                repository.getTvShows()
+            }
+
+            _images.postValue(mapper.mapDataToPresentation(result))
+        }
+    }
 
     fun launchCoroutineGlobal2() {
         coroutine = GlobalScope.launch(Dispatchers.IO) {
