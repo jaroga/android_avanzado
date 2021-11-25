@@ -2,8 +2,12 @@ package com.keepcoding.imgram.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationBarView
+import com.keepcoding.imgram.R
 import com.keepcoding.imgram.ThreadManager
 import com.keepcoding.imgram.databinding.ActivityMainBinding
 import com.keepcoding.imgram.model.Image
@@ -12,6 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var imageAdapter = ImageAdapter()
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
+    //private lateinit var lateinitViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +33,36 @@ class MainActivity : AppCompatActivity() {
             imageList.layoutManager =
                 LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
 
-            button.setOnClickListener { crearCallback() }
+            // Error de lateinit no inicializado
+            //lateinitViewModel.getHola()
+
+            button.setOnClickListener {
+                viewModel.launchCoroutineInViewModel()
+            }
+
+            bottomNavigationView.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {
+                override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+                    when(item.itemId){
+                        R.id.menu_top -> {
+                            Log.d("ActivityMain", "Menu top clicked")
+                        }
+                        R.id.menu_hot -> {
+                            Log.d("ActivityMain", "Menu hot clicked")
+
+                        }
+                        else -> {
+                            Log.d("ActivityMain", "No deberías estar aqui")
+                        }
+                    }
+
+                    return false
+                }
+
+            })
+
+            // Inicialización del lateinit
+            //lateinitViewModel = ViewModelProvider(this@MainActivity).get(MainViewModel::class.java)
         }
 
         val images = mutableListOf<Image>()
@@ -35,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 //        Thread.sleep(100000)
 
         imageAdapter.data = images
+    }
+
+    override fun onPause() {
+//        viewModel.pararCoroutines()
+        super.onPause()
     }
 
     fun crearThread(){
