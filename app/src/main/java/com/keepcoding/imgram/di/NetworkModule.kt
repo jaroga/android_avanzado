@@ -3,7 +3,7 @@ package com.keepcoding.imgram.di
 import android.content.Context
 import com.keepcoding.imgram.BuildConfig
 import com.keepcoding.imgram.Properties
-import com.keepcoding.imgram.data.TheMovieDBApi
+import com.keepcoding.imgram.data.remote.TheMovieDBApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+class NetworkModule {
 
     @Provides
     @Singleton

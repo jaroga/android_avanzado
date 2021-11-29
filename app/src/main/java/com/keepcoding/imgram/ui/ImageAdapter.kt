@@ -12,9 +12,11 @@ import com.keepcoding.imgram.databinding.ItemListBinding
 import com.keepcoding.imgram.model.Image
 import com.keepcoding.imgram.model.TvShowPresentation
 
-class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter(
+    private val clickListener: (TvShowPresentation) -> Unit
+) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
-    private var data = mutableListOf<TvShowPresentation>()
+    var data = mutableListOf<TvShowPresentation>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -30,16 +32,24 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     }
 
     fun addAll(items: List<TvShowPresentation>){
+        data.clear()
         data.addAll(items)
         notifyDataSetChanged()
     }
 
-    class ImageViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
+    inner class ImageViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
 
         private val binding = ItemListBinding.bind(itemView)
+        private lateinit var item: TvShowPresentation
+
+        init {
+            binding.image.setOnClickListener {
+                clickListener(item)
+            }
+        }
 
         fun bind(item: TvShowPresentation) {
-
+            this.item = item
             with(binding) {
                 imageTitle.text = item.name
                 Glide.with(itemView.context)

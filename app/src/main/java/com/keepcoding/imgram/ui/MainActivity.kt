@@ -23,7 +23,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var imageAdapter = ImageAdapter()
+    private var imageAdapter = ImageAdapter(clickListener = {
+        viewModel.deleteTvShow(it)
+    })
 
 //    private val viewModel: MainViewModel by lazy {
 //        ViewModelProvider(this).get(MainViewModel::class.java)
@@ -51,7 +53,12 @@ class MainActivity : AppCompatActivity() {
             //lateinitViewModel.getHola()
 
             button.setOnClickListener {
-//                viewModel.launchCoroutineInViewModel()
+                viewModel.deleteAllTvShow()
+//                viewModel.deleteTvShow(imageAdapter.data[0])
+
+//                viewModel.lanzarThread{
+//                    Log.d("MainActivity", "Final count: $it")
+//                }
 //                mainManager.diTuVariable(
 //                viewModel.getTvShows()
             }

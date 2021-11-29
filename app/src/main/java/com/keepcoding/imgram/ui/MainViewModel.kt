@@ -6,12 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepcoding.imgram.data.LocalDataSource
-import com.keepcoding.imgram.data.RemoteDataSource
 import com.keepcoding.imgram.data.Repository
-import com.keepcoding.imgram.data.TheMovieDBApi
-import com.keepcoding.imgram.mappers.TvShowMapper
-import com.keepcoding.imgram.model.Image
+import com.keepcoding.imgram.mappers.TvShowPresentationMapper
 import com.keepcoding.imgram.model.TvShowPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -19,7 +15,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: Repository, private val mapper: TvShowMapper) : ViewModel() {
+class MainViewModel @Inject constructor(private val repository: Repository, private val mapper: TvShowPresentationMapper) : ViewModel() {
 
     private val _images: MutableLiveData<List<TvShowPresentation>> by lazy {
         MutableLiveData<List<TvShowPresentation>>()
@@ -35,6 +31,34 @@ class MainViewModel @Inject constructor(private val repository: Repository, priv
     private fun getTvShows(){
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
+                repository.getTvShows()
+            }
+
+            val sortedResults = result.sortedBy { it.name }
+
+            _images.postValue(mapper.mapDataToPresentation(sortedResults))
+        }
+    }
+
+    fun deleteTvShow(itemPresentation: TvShowPresentation){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+//                repository.deleteTvShow(mapper.mapPresentationToData(itemPresentation))
+                itemPresentation.id?.also {
+                    repository.deleteTvShowById(it)
+                }
+
+                repository.getTvShows()
+            }
+
+            _images.postValue(mapper.mapDataToPresentation(result))
+        }
+    }
+
+    fun deleteAllTvShow(){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                repository.deleteAllTvShows()
                 repository.getTvShows()
             }
 
@@ -209,6 +233,23 @@ class MainViewModel @Inject constructor(private val repository: Repository, priv
     private suspend fun tarea6() {
 
 
+    }
+
+    fun lanzarThread(callback: (Long) -> (Unit)){
+        Thread {
+            val LIMIT = 100000
+            var i = 0L
+
+            while (i < LIMIT){
+                val rnds = (1..1000).random()
+                Log.d("MainViewModel", "Previous: $i")
+                Thread.sleep(100)
+                i += rnds
+                Log.d("MainViewModel", "After: $i Se ha sumado $rnds")
+            }
+
+            callback(i)
+        }.start()
     }
 
 
