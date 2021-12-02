@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keepcoding.imgram.R
 import com.keepcoding.imgram.databinding.ItemListBinding
-import com.keepcoding.imgram.model.Image
-import com.keepcoding.imgram.model.TvShowPresentation
+import com.keepcoding.imgram.model.presentation.TvShowPresentation
 
-class ImageAdapter(
+class TvShowAdapter(
     private val clickListener: (TvShowPresentation) -> Unit
-) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+) : RecyclerView.Adapter<TvShowAdapter.ImageViewHolder>() {
 
     var data = mutableListOf<TvShowPresentation>()
 

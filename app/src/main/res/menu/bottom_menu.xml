@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_top"
-        android:title="@string/menu_top_label"
+        android:id="@+id/menu_tv_shows"
+        android:title="@string/menu_tv_shows_label"
         android:icon="@mipmap/ic_launcher"/>
 
     <item
-        android:id="@+id/menu_hot"
-        android:title="@string/menu_hot_label"
+        android:id="@+id/menu_movies"
+        android:title="@string/menu_movies_label"
         android:icon="@mipmap/ic_launcher"/>
 
 </menu>

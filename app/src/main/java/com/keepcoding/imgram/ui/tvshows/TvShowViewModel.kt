@@ -1,4 +1,4 @@
-package com.keepcoding.imgram.ui
+package com.keepcoding.imgram.ui.tvshows
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -7,15 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.imgram.data.Repository
-import com.keepcoding.imgram.mappers.TvShowPresentationMapper
-import com.keepcoding.imgram.model.TvShowPresentation
+import com.keepcoding.imgram.mappers.presentation.TvShowPresentationMapper
+import com.keepcoding.imgram.model.presentation.TvShowPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: Repository, private val mapper: TvShowPresentationMapper) : ViewModel() {
+class TvShowViewModel @Inject constructor(private val repository: Repository, private val mapper: TvShowPresentationMapper) : ViewModel() {
 
     private val _images: MutableLiveData<List<TvShowPresentation>> by lazy {
         MutableLiveData<List<TvShowPresentation>>()

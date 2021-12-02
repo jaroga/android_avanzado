@@ -1,4 +1,4 @@
-package com.keepcoding.imgram.model
+package com.keepcoding.imgram.model.network
 
 import com.squareup.moshi.Json
 

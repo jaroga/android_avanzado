@@ -1,4 +1,4 @@
-package com.keepcoding.imgram.ui
+package com.keepcoding.imgram.ui.tvshows
 
 import android.os.Bundle
 import android.view.View
@@ -7,21 +7,19 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.keepcoding.imgram.R
 import com.keepcoding.imgram.databinding.FragmentMainBinding
+import com.keepcoding.imgram.ui.TvShowAdapter
 import com.keepcoding.imgram.ui.commons.viewBinding
 import com.keepcoding.imgram.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.fragment_main) {
+class TvShowFragment : Fragment(R.layout.fragment_main) {
 
     private val binding: FragmentMainBinding by viewBinding()
-    private val viewModel: MainViewModel by viewModels()
-    private val imageAdapter = ImageAdapter {
+    private val viewModel: TvShowViewModel by viewModels()
+    private val imageAdapter = TvShowAdapter {
         viewModel.deleteTvShow(it)
     }
-
-
-
 
 //    override fun onCreateView(
 //        inflater: LayoutInflater,

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Imgram</string>
-    <string name="menu_top_label">Top</string>
-    <string name="menu_hot_label">Hot</string>
+    <string name="menu_tv_shows_label">Tv Shows</string>
+    <string name="menu_movies_label">Movies</string>
 </resources>

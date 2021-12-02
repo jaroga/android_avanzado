@@ -1,4 +1,4 @@
-package com.keepcoding.imgram.model
+package com.keepcoding.imgram.model.presentation
 
 data class TvShowPresentation(
     var id: Long?,

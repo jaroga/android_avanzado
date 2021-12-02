@@ -1,7 +1,7 @@
-package com.keepcoding.imgram.mappers
+package com.keepcoding.imgram.mappers.presentation
 
-import com.keepcoding.imgram.model.TvShowItemData
-import com.keepcoding.imgram.model.TvShowPresentation
+import com.keepcoding.imgram.model.data.TvShowItemData
+import com.keepcoding.imgram.model.presentation.TvShowPresentation
 import javax.inject.Inject
 
 class TvShowPresentationMapper @Inject constructor() {

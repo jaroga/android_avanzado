@@ -1,30 +1,28 @@
 package com.keepcoding.imgram.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationBarView
 import com.keepcoding.imgram.R
 import com.keepcoding.imgram.ThreadManager
 import com.keepcoding.imgram.databinding.ActivityMainBinding
 import com.keepcoding.imgram.managers.MainManager
 import com.keepcoding.imgram.model.Image
-import com.keepcoding.imgram.visible
+import com.keepcoding.imgram.ui.movies.MovieAdapter
+import com.keepcoding.imgram.ui.movies.MovieFragment
+import com.keepcoding.imgram.ui.tvshows.TvShowFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
-    private var imageAdapter = ImageAdapter(clickListener = {
+    private var imageAdapter = MovieAdapter(clickListener = {
 //        viewModel.deleteTvShow(it)
     })
 
@@ -43,20 +41,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportFragmentManager.beginTransaction()
-            .add(binding.fragmentContainer1.id, MainFragment::class.java, bundleOf())
-            .commit()
-        supportFragmentManager.beginTransaction()
-            .add(binding.fragmentContainer2.id, MainFragment::class.java, bundleOf())
-            .commit()
-        supportFragmentManager.beginTransaction()
-            .add(binding.fragmentContainer3.id, MainFragment::class.java, bundleOf())
-            .commit()
-        supportFragmentManager.beginTransaction()
-            .add(binding.fragmentContainer4.id, MainFragment::class.java, bundleOf())
-            .commit()
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.putExtra("HOLA", "H")
+//        startActivity(intent)
 
+//        supportFragmentManager.beginTransaction()
+//            .add(binding.fragmentContainer1.id, MainFragment::class.java, bundleOf())
+//            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .add(binding.fragmentContainer2.id, MainFragment::class.java, bundleOf())
+//            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .add(binding.fragmentContainer3.id, MainFragment::class.java, bundleOf())
+//            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .add(binding.fragmentContainer4.id, MainFragment::class.java, bundleOf())
+//            .commit()
 
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentContainer.id, TvShowFragment::class.java, bundleOf(Pair("key", "value")))
+//            .replace(binding.fragmentContainer.id, TvShowFragment::class.java, bundleOf("key" to "value"))
+            .commit()
 
 
 
@@ -86,12 +91,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
                     when(item.itemId){
-                        R.id.menu_top -> {
-                            Log.d("ActivityMain", "Menu top clicked")
+                        R.id.menu_tv_shows -> {
+//                            Log.d("ActivityMain", "Menu top clicked")
+                            supportFragmentManager.beginTransaction()
+                                .replace(binding.fragmentContainer.id, TvShowFragment::class.java, bundleOf())
+                                .commit()
                         }
-                        R.id.menu_hot -> {
-                            Log.d("ActivityMain", "Menu hot clicked")
-
+                        R.id.menu_movies -> {
+//                            Log.d("ActivityMain", "Menu hot clicked")
+                            supportFragmentManager.beginTransaction()
+                                .replace(binding.fragmentContainer.id, MovieFragment::class.java, bundleOf())
+                                .commit()
                         }
                         else -> {
                             Log.d("ActivityMain", "No deberías estar aqui")
