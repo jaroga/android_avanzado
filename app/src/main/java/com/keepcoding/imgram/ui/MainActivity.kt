@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,18 +21,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private var imageAdapter = ImageAdapter(clickListener = {
-        viewModel.deleteTvShow(it)
+//        viewModel.deleteTvShow(it)
     })
 
 //    private val viewModel: MainViewModel by lazy {
 //        ViewModelProvider(this).get(MainViewModel::class.java)
 //    }
 
-    private val viewModel: MainViewModel by viewModels()
+//    private val viewModel: MainViewModel by viewModels()
 
     //private lateinit var lateinitViewModel: MainViewModel
 
@@ -42,18 +43,36 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportFragmentManager.beginTransaction()
+            .add(binding.fragmentContainer1.id, MainFragment::class.java, bundleOf())
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .add(binding.fragmentContainer2.id, MainFragment::class.java, bundleOf())
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .add(binding.fragmentContainer3.id, MainFragment::class.java, bundleOf())
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .add(binding.fragmentContainer4.id, MainFragment::class.java, bundleOf())
+            .commit()
+
+
+
+
+
+
         with(binding){
-            imageList.adapter = imageAdapter
+//            imageList.adapter = imageAdapter
 //            imageList.layoutManager =
 //                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
 
-            imageList.layoutManager = GridLayoutManager(this@MainActivity, 2)
+//            imageList.layoutManager = GridLayoutManager(this@MainActivity, 2)
 
             // Error de lateinit no inicializado
             //lateinitViewModel.getHola()
 
             button.setOnClickListener {
-                viewModel.deleteAllTvShow()
+//                viewModel.deleteAllTvShow()
 //                viewModel.deleteTvShow(imageAdapter.data[0])
 
 //                viewModel.lanzarThread{
@@ -96,12 +115,12 @@ class MainActivity : AppCompatActivity() {
 
 //        Thread.sleep(100000)
 
-        binding.progress.visible(true)
+//        binding.progress.visible(true)
 
-        viewModel.images.observe(this){
-            imageAdapter.addAll(it)
-            binding.progress.visible(false)
-        }
+//        viewModel.images.observe(this){
+//            imageAdapter.addAll(it)
+//            binding.progress.visible(false)
+//        }
     }
 
     override fun onPause() {
@@ -128,5 +147,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 }
