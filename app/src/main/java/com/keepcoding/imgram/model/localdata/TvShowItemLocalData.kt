@@ -1,4 +1,4 @@
-package com.keepcoding.imgram.model
+package com.keepcoding.imgram.model.localdata
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

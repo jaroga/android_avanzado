@@ -1,7 +1,7 @@
 package com.keepcoding.imgram.mappers.data
 
 import com.keepcoding.imgram.model.data.TvShowItemData
-import com.keepcoding.imgram.model.TvShowItemLocalData
+import com.keepcoding.imgram.model.localdata.TvShowItemLocalData
 import com.keepcoding.imgram.model.network.TvShowItemNetworkData
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class TvShowDataMapper @Inject constructor() {
         return localList.map { mapDataToLocal(it) }
     }
 
-    private fun mapNetworkToData(local: TvShowItemNetworkData): TvShowItemData {
+    fun mapNetworkToData(local: TvShowItemNetworkData): TvShowItemData {
         return TvShowItemData(local.id, local.name, local.posterPath)
     }
 

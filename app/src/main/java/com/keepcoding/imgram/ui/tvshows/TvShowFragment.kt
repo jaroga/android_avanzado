@@ -1,5 +1,6 @@
 package com.keepcoding.imgram.ui.tvshows
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import com.keepcoding.imgram.R
 import com.keepcoding.imgram.databinding.FragmentMainBinding
 import com.keepcoding.imgram.ui.TvShowAdapter
 import com.keepcoding.imgram.ui.commons.viewBinding
+import com.keepcoding.imgram.ui.moviedetail.MovieDetailActivity
+import com.keepcoding.imgram.ui.tvshowsdetail.TvShowDetailActivity
 import com.keepcoding.imgram.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +21,10 @@ class TvShowFragment : Fragment(R.layout.fragment_main) {
     private val binding: FragmentMainBinding by viewBinding()
     private val viewModel: TvShowViewModel by viewModels()
     private val imageAdapter = TvShowAdapter {
-        viewModel.deleteTvShow(it)
+        val intent = Intent(context, TvShowDetailActivity::class.java)
+        intent.putExtra("detallevista", it.id)
+
+        startActivity(intent)
     }
 
 //    override fun onCreateView(
