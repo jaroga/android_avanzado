@@ -1,5 +1,6 @@
 package com.keepcoding.imgram.ui.moviedetail
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.keepcoding.imgram.R
 import com.keepcoding.imgram.databinding.MovieDetailBinding
 import com.keepcoding.imgram.utils.RecyclerViewItemDecoration
@@ -44,6 +46,14 @@ class MovieDetailActivity: AppCompatActivity() {
             movieReviewsAdapter.addAll(it.reviews)
 
             binding.movieProgress.visible(false)
+        }
+
+        binding.movieFab.setOnClickListener { view ->
+            Snackbar.make(view, "TODO: Guardado en tus favoritos", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
+
+            binding.movieFab.setColorFilter(Color.parseColor("#E91A1A"))
         }
     }
 }

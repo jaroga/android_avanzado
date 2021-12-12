@@ -2,5 +2,6 @@
     <string name="app_name">The Movie DB</string>
     <string name="menu_tv_shows_label">Tv Shows</string>
     <string name="menu_movies_label">Movies</string>
+    <string name="menu_favourites_label">Favoritos</string>
     <string name="review_title">Reviews</string>
 </resources>

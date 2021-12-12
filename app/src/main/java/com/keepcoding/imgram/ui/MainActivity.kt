@@ -13,6 +13,7 @@ import com.keepcoding.imgram.ThreadManager
 import com.keepcoding.imgram.databinding.ActivityMainBinding
 import com.keepcoding.imgram.managers.MainManager
 import com.keepcoding.imgram.model.Image
+import com.keepcoding.imgram.ui.favourites.FavouritesFragment
 import com.keepcoding.imgram.ui.movies.MovieAdapter
 import com.keepcoding.imgram.ui.movies.MovieFragment
 import com.keepcoding.imgram.ui.tvshows.TvShowFragment
@@ -101,6 +102,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //                            Log.d("ActivityMain", "Menu hot clicked")
                             supportFragmentManager.beginTransaction()
                                 .replace(binding.fragmentContainer.id, MovieFragment::class.java, bundleOf())
+                                .commit()
+                        }
+                        R.id.menu_favourites -> {
+//                            Log.d("ActivityMain", "Menu hot clicked")
+                            supportFragmentManager.beginTransaction()
+                                .replace(binding.fragmentContainer.id, FavouritesFragment::class.java, bundleOf())
                                 .commit()
                         }
                         else -> {

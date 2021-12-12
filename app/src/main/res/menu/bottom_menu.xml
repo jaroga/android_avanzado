@@ -5,11 +5,15 @@
     <item
         android:id="@+id/menu_tv_shows"
         android:title="@string/menu_tv_shows_label"
-        android:icon="@mipmap/ic_launcher"/>
+        android:icon="@drawable/ic_tvshows_icon"/>
 
     <item
         android:id="@+id/menu_movies"
         android:title="@string/menu_movies_label"
-        android:icon="@mipmap/ic_launcher"/>
+        android:icon="@drawable/ic_movies_icon"/>
 
+    <item
+        android:id="@+id/menu_favourites"
+        android:title="@string/menu_favourites_label"
+        android:icon="@drawable/ic_favourites_icon"/>
 </menu>
